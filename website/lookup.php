@@ -35,10 +35,10 @@ if (count($aOsmIds) > CONST_Places_Max_ID_count) {
 foreach ($aOsmIds as $sItem) {
     // Skip empty sItem
     if (empty($sItem)) continue;
-    
+
     $sType = $sItem[0];
     $iId = (int) substr($sItem, 1);
-    if ($iId > 0 && ($sType == 'N' || $sType == 'W' || $sType == 'R')) {
+    if ($iId != 0 && ($sType == 'N' || $sType == 'W' || $sType == 'R')) {
         $aCleanedQueryParts[] = $sType . $iId;
         $oPlace = $oPlaceLookup->lookupOSMID($sType, $iId);
         if ($oPlace) {

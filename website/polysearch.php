@@ -27,8 +27,7 @@ $oPlaceLookup->loadParamArray($oParams);
 $oPlaceLookup->setIncludeAddressDetails($oParams->getBool('addressdetails', true));
 
 $aOsmId = $oParams->getString('osm_id', '');
-
-$aOsmJMPolyIds = $oPlaceLookup->lookupJMPolyOSMIDs($iId);
+$aOsmJMPolyIds = $oPlaceLookup->lookupJMPolyOSMIDs($aOsmId);
 
 foreach ($aOsmJMPolyIds as $sItem) {
     // Skip empty sItem

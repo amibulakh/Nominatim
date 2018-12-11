@@ -98,6 +98,7 @@ set(WEBSITESCRIPTS
     website/details.php
     website/hierarchy.php
     website/lookup.php
+    website/polysearch.php
     website/polygons.php
     website/reverse.php
     website/search.php

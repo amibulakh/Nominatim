@@ -174,6 +174,15 @@ class PlaceLookup
         return empty($aResults) ? null : reset($aResults);
     }
 
+    public function lookupJMPolyOSMIDs($iID) {
+        $sSQL =  "select p.osm_id from placex p where p.type = 'retail'";
+        $sSQL .= "  and p.extratags -> 'source' = 'jetmoney'";
+        $sSQL .= "  and ST_Contains(p.geometry, (select geometry from place where osm_id = ".$$iID."))";
+
+        $aJMPoly = chksql($this->oDB->getAll($sSQL), 'Could not JM Polygons');
+        return empty($aJMPoly) ? null : reset($aJMPoly);
+    }
+
     public function lookup($aResults, $iMinRank = 0, $iMaxRank = 30)
     {
         Debug::newFunction('Place lookup');
@@ -539,11 +548,11 @@ class PlaceLookup
                 }
 
                 $aOutlineResult['aBoundingBox'] = array(
-                                                   (string)$aPointPolygon['minlat'],
-                                                   (string)$aPointPolygon['maxlat'],
-                                                   (string)$aPointPolygon['minlon'],
-                                                   (string)$aPointPolygon['maxlon']
-                                                  );
+                    (string)$aPointPolygon['minlat'],
+                    (string)$aPointPolygon['maxlat'],
+                    (string)$aPointPolygon['minlon'],
+                    (string)$aPointPolygon['maxlon']
+                );
             }
         }
 
@@ -562,11 +571,11 @@ class PlaceLookup
             $aBounds['maxlon'] = $fLon + $fRadius;
 
             $aOutlineResult['aBoundingBox'] = array(
-                                               (string)$aBounds['minlat'],
-                                               (string)$aBounds['maxlat'],
-                                               (string)$aBounds['minlon'],
-                                               (string)$aBounds['maxlon']
-                                              );
+                (string)$aBounds['minlat'],
+                (string)$aBounds['maxlat'],
+                (string)$aBounds['minlon'],
+                (string)$aBounds['maxlon']
+            );
         }
         return $aOutlineResult;
     }

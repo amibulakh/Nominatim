@@ -179,7 +179,7 @@ class PlaceLookup
         $sSQL .= "  and p.extratags -> 'source' = 'jetmoney'";
         $sSQL .= "  and ST_Contains(p.geometry, (select geometry from place where osm_id = ".$$iID."))";
 
-        $aJMPoly = chksql($this->oDB->getAll($sSQL), 'Could not JM Polygons');
+        $aJMPoly = chksql($this->oDB->getAll($sSQL));
         return empty($aJMPoly) ? null : reset($aJMPoly);
     }
 

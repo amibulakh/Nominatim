@@ -33,20 +33,19 @@ foreach ($aOsmJMPolyIds as $sItem) {
     // Skip empty sItem
 
     $iId = (int)$sItem['osm_id'];
-    if ($iId != 0) {
-        $aCleanedQueryParts[] = "W" . $iId;
-        $oPlace = $oPlaceLookup->lookupOSMID("W", $iId);
-        if ($oPlace) {
-            // we want to use the search-* output templates, so we need to fill
-            // $aSearchResults and slightly change the (reverse search) oPlace
-            // key names
-            $oResult = $oPlace;
-            unset($oResult['aAddress']);
-            if (isset($oPlace['aAddress'])) $oResult['address'] = $oPlace['aAddress'];
-            unset($oResult['langaddress']);
-            $oResult['name'] = $oPlace['langaddress'];
-            $aSearchResults[] = $oResult;
-        }
+
+    $aCleanedQueryParts[] = "W" . $iId;
+    $oPlace = $oPlaceLookup->lookupOSMID("W", $iId);
+    if ($oPlace) {
+        // we want to use the search-* output templates, so we need to fill
+        // $aSearchResults and slightly change the (reverse search) oPlace
+        // key names
+        $oResult = $oPlace;
+        unset($oResult['aAddress']);
+        if (isset($oPlace['aAddress'])) $oResult['address'] = $oPlace['aAddress'];
+        unset($oResult['langaddress']);
+        $oResult['name'] = $oPlace['langaddress'];
+        $aSearchResults[] = $oResult;
     }
 }
 

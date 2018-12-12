@@ -179,8 +179,7 @@ class PlaceLookup
         $sSQL .= "  and p.extratags -> 'website' = 'jetmoney'";
         $sSQL .= "  and ST_Contains(p.geometry, (select p1.geometry from placex p1 where p1.osm_id = ".$iID."))";
 
-        $aJMPoly = chksql($this->oDB->getAll($sSQL), $sSQL);
-        return empty($aJMPoly) ? null : reset($aJMPoly);
+        return chksql($this->oDB->getAll($sSQL), $sSQL);
     }
 
     public function lookup($aResults, $iMinRank = 0, $iMaxRank = 30)

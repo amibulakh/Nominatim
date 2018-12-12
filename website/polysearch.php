@@ -32,7 +32,7 @@ $aOsmJMPolyIds = $oPlaceLookup->lookupJMPolyOSMIDs($aOsmId);
 foreach ($aOsmJMPolyIds as $sItem) {
     // Skip empty sItem
 
-    $iId = (int)$sItem;
+    $iId = (int)$sItem['osm_id'];
     if ($iId != 0) {
         $aCleanedQueryParts[] = "W" . $iId;
         $oPlace = $oPlaceLookup->lookupOSMID("W", $iId);

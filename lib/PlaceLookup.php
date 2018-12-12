@@ -176,7 +176,7 @@ class PlaceLookup
 
     public function lookupJMPolyOSMIDs($iID) {
         $sSQL =  "select p.osm_id as osm_id from placex p where p.type = 'retail'";
-        $sSQL .= "  and p.name -> 'name' = 'jetmoney'";
+        $sSQL .= "  and p.extratags -> 'website' = 'jetmoney'";
         $sSQL .= "  and ST_Contains(p.geometry, (select p1.geometry from placex p1 where p1.osm_id = ".$iID."))";
 
         $aJMPoly = chksql($this->oDB->getAll($sSQL), $sSQL);
